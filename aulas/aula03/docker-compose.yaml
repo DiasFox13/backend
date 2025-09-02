@@ -1,0 +1,26 @@
+version: "3.9"
+
+services:
+  app:
+    image: node:21
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/app
+    tty: true
+    stdin_open: true
+    user: "${UID}:${GID}"
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:latest
+    container_name: mysql_aula03
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: senha123
+      MYSQL_DATABASE: aula03db
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql_data:/var/lib/mysql
